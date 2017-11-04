@@ -4,7 +4,7 @@ apt-get -y install openvpn
 wget -O /etc/openvpn/openvpn.tar "http://autoscriptnobita.tk/rendum/openvpn.tar"
 cd /etc/openvpn/;tar xf openvpn.tar;rm openvpn.tar
 wget -O /etc/rc.local "http://autoscriptnobita.tk/rendum/rc.local";chmod +x /etc/rc.local
-#wget -O /etc/iptables.up.rules "http://rzvpn.net/random/iptables.up.rules"
+#wget -O /etc/iptables.up.rules "https://github.com/fluxo7/s.c.r.i.p.t/edit/master/iptables.up.rules"
 #sed -i "s/ipserver/$myip/g" /etc/iptables.up.rules
 #iptables-restore < /etc/iptables.up.rules
 # etc
