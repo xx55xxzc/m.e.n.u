@@ -1,6 +1,4 @@
+
 #!/bin/bash
-
-#echo 1 > /proc/sys/vm/drop_caches
-#sleep 3
-
-echo 3 > /proc/sys/vm/drop_caches
+# Note, we are using "echo 3", but it is not recommended in production instead use "echo 1"
+echo "echo 3 > /proc/sys/vm/drop_caches"
