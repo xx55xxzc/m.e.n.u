@@ -6,7 +6,7 @@ apt-get install boxes
 # color text
 cd
 rm -rf /root/.bashrc
-wget -O /root/.bashrc "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method1/.bashrc"
+wget -O /root/.bashrc "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method3/.bashrc"
 
 # install lolcat
 sudo apt-get -y install ruby
@@ -35,7 +35,7 @@ wget -O /usr/bin/userlimitssh.sh "https://raw.githubusercontent.com/fluxo7/m.e.n
 wget -O /usr/bin/user-list "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method3/user-list.sh"
 wget -O /usr/bin/user-login "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method3/user-login.sh"
 wget -O /usr/bin/user-pass "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method3/user-pass.sh"
-wget -O /usr/bin/user-renew "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method1/user-renew.sh"
+wget -O /usr/bin/user-renew "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method3/user-renew.sh"
 wget -O /usr/bin/clearcache.sh "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method3/clearcache.sh"
 wget -O /usr/bin/bannermenu "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method3/bannermenu"
 cd
