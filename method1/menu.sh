@@ -22,7 +22,7 @@ lolcat -F 0.3 -S 0 /usr/bin/bannermenu
 echo "                       Server: $MYIP" | lolcat
 date +"                        %A, %d-%m-%Y" | lolcat
 date +"                           %H:%M:%S %Z" | lolcat
-echo -e "\e[40;38;5;221m                       SIMPLE MENU
+echo -e "\e[40;38;5;226m                       SIMPLE MENU
 ";PS3='Select an option [1-35] Then Press ENTER: '
 options=("Create User" "Create Account Trial" "Renew User" "Change Password User Premium" "All User" "Delete User" "Create User PPTP VPN" "Monitor Multi Login" "Online User" "User Active List" "User Expired" "Banned User" "Unbanned User" "Delete User Expired" "Status Ram" "Speedtest" "Benchmark" "Manual Kill Multi Login" "(ON) Auto Kill Multi Login" "(OFF) Auto Kill Multi Login" "Change Password VPS" "Clear Cache Ram" "Restart Webmin" "Restart Server VPS" "Restart Dropbear" "Install OpenVpn"  "Restart OpenSSH" "Restart Squid3" "Restart OpenVPN" "Change Port OpenSSH" "Change Port Dropbear" "Change Port Squid3" "Change Port OpenVPN" "Download Client Ovpn" "Install Ocs_Panel" "Quit")
 select opt in "${options[@]}"
