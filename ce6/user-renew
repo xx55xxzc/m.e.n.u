@@ -5,7 +5,7 @@ if [[ $USER != 'root' ]]; then
 	exit
 fi
 MYIP=$(wget -qO- ipv4.icanhazip.com)
-echo -e "\e[38;5;82m"---------------------RENEW AKAUN SSH---------------------"
+echo -e "\e[38;5;82m---------------------RENEW AKAUN SSH---------------------"
 if [[ $vps = "soned" ]]; then
 	echo "  "
 else
