@@ -1,8 +1,6 @@
 #!/bin/bash
-
-
 MYIP=$(wget -qO- ipv4.icanhazip.com)
-echo "------------------MEMBUAT AKAUN SSH & OVPN------------------"
+echo -e "\e[38;5;82mMEMBUAT AKAUN SSH & OVPN"
 if [[ $vps = "soned" ]]; then
 echo ""
 else
