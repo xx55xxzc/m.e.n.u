@@ -20,7 +20,8 @@ MYIP=$(wget -qO- ipv4.icanhazip.com)
 	echo -e "\e[032;1mTotal amount of swap:\e[0m $swap MB"
 	echo -e "\e[032;1mSystem uptime:\e[0m $up"
 	echo -e "\e[38;5;226m≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
-	echo -e "Sila pilih pilihan dibawah ini"
+	echo -e "\e[38;5;196m     MENU UTAMA | MENU SCRIPT BY Fluxo7"
+        echo -e "\e[38;5;226m≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 	echo -e "\e[38;5;226m 1\e[0m)\e[38;5;48mBuat Account SSH/OpenVPN "
 	echo -e "\e[38;5;226m 2\e[0m)\e[38;5;48mGenerate Akaun SSH/OpenVPN "
 	echo -e "\e[38;5;226m 3\e[0m)\e[38;5;48mChange User Password SSH/OpenVPN"
@@ -42,7 +43,9 @@ MYIP=$(wget -qO- ipv4.icanhazip.com)
 	echo -e "\e[38;5;226m19\e[0m)\e[38;5;48mBenchmark"
 	echo -e "\e[38;5;226m20\e[0m)\e[38;5;48mReboot Server"
 	echo -e "\e[38;5;196mx\e[0m)\e[38;5;196m Exit Telegram:@OrangKuatSabahanTerkini"
+        echo -e "\e[38;5;226m≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 	read -p "Masukkan pilihan [1-20], kemudian tekan ENTER: " option1
+        echo -e "\e[38;5;226m≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 	case $option1 in
 		1)
 		clear
