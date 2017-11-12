@@ -42,7 +42,7 @@ MYIP=$(wget -qO- ipv4.icanhazip.com)
 	echo -e "\e[38;5;226m19\e[0m)\e[38;5;48mBenchmark"
 	echo -e "\e[38;5;226m20\e[0m)\e[38;5;48mReboot Server"
 	echo -e "\e[38;5;196mx\e[0m)\e[38;5;196m Exit\e[38;5;136m @OrangKuatSabahanTerkini"
-	echo -e "\e[38;5;82mMasukkan pilihan[1-20] ENTER: "
+	read -p "Masukkan pilihan [1-20], kemudian tekan ENTER: " option1
 	case $option1 in
 		1)
 		clear
