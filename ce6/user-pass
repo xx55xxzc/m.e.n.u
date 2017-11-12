@@ -13,10 +13,9 @@ else
 fi
 	echo " "
 # begin of user-list
-echo "-----------------------------------"
+echo "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 echo "USERNAME              EXP DATE     "
-echo "-----------------------------------"
-
+echo "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 while read expired
 do
 	AKUN="$(echo $expired | cut -d: -f1)"
@@ -26,12 +25,8 @@ do
 		printf "%-21s %2s\n" "$AKUN" "$exp"
 	fi
 done < /etc/passwd
-echo "-----------------------------------"
-echo ""
 # end of user-list
-
 read -p "Isikan username: " username
-
 egrep "^$username" /etc/passwd >/dev/null
 if [ $? -eq 0 ]; then
 	read -p "Isikan password baru akun [$username]: " password
@@ -41,9 +36,9 @@ if [ $? -eq 0 ]; then
 		echo $username:$password | chpasswd
 		echo "Penggantian password akun [$username] Sukses"
 		echo ""
-		echo -e "\e[38;5;198m-----------------------------------"
+		echo -e "\e[38;5;198m≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 		echo "Data Login:"
-		echo "-----------------------------------"
+		echo "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 		echo "Host/IP: $MYIP"
 		echo "Dropbear Port: 443, 110, 109"
 		echo "OpenSSH Port: 22, 143"
@@ -51,7 +46,7 @@ if [ $? -eq 0 ]; then
 		echo "Username: $username"
 		echo "Password: $password"
 		#echo "Valid s/d: $(date -d "$AKTIF days" +"%d-%m-%Y")"
-		echo "-----------------------------------"
+		echo "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 	else
 		echo "Penggantian password akun [$username] Gagal"
 		echo "[Password baru] & [Konfirmasi Password Baru] tidak cocok, silahkan ulangi lagi!"
