@@ -13,7 +13,7 @@ else
 fi 
 echo ""
 # begin of user-list
-echo -e "\e[38;5;198m-----------------------------------"
+echo "-----------------------------------"
 echo "USERNAME              EXP DATE     "
 echo "-----------------------------------"
 
@@ -45,7 +45,7 @@ if [ $? -eq 0 ]; then
 	#useradd -M -s /bin/false -e $expire $username
 
 	echo ""
-	echo "-----------------------------------"
+	echo -e "\e[38;5;198m-----------------------------------"
 	echo "Data Login:"
 	echo "-----------------------------------"
 	echo "Host/IP: $MYIP"
