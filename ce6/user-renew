@@ -4,23 +4,16 @@ if [[ $USER != 'root' ]]; then
 	echo "Maaf, Anda harus menjalankan ini sebagai root"
 	exit
 fi
-
 MYIP=$(wget -qO- ipv4.icanhazip.com)
-
-echo "---------------------RENEW AKAUN SSH---------------------"
-
+echo -e "\e[38;5;82m"---------------------RENEW AKAUN SSH---------------------"
 if [[ $vps = "soned" ]]; then
-	echo "         Support Us at GollumVPN    "
-	
+	echo "  "
 else
-	echo "          DEVELOPED BY Fluxo7      "
+	echo " "
 fi 
-
-	echo "            SCRIPT BY SYAHZ86          "
 echo ""
-
 # begin of user-list
-echo "-----------------------------------"
+echo -e "\e[38;5;198m-----------------------------------"
 echo "USERNAME              EXP DATE     "
 echo "-----------------------------------"
 
