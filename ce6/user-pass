@@ -11,7 +11,6 @@ if [[ $vps = "soned" ]]; then
 else
 	echo " "
 fi
-	echo " "
 # begin of user-list
 echo "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 echo "USERNAME              EXP DATE     "
@@ -43,8 +42,8 @@ if [ $? -eq 0 ]; then
 		echo "Dropbear Port: 443, 110, 109"
 		echo "OpenSSH Port: 22, 143"
 		echo "Squid Proxy: 8080, 3128"
-		echo "Username: $username"
-		echo "Password: $password"
+		echo -e "\e[38;5;82m Username: $username"
+		echo -e "\e[38;5;82m Password: $password"
 		#echo "Valid s/d: $(date -d "$AKTIF days" +"%d-%m-%Y")"
 		echo "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 	else
