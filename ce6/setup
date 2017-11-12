@@ -1,0 +1,27 @@
+# download script
+cd /usr/bin
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/menu && chmod +x menu
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/badvpn-udpgw && chmod +x badvpn-udpgw
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/banned-user && chmod +x banned-user
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/basename && chmod +x basename
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/benchmark && chmod +x benchmark
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/bmon && chmod +x bmon
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/delete-user-expire && chmod +x delete-user-expire
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/disable-user-expire && chmod +x disable-user-expire
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/dropmon && chmod +x dropmon
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/re-drop && chmod +x re-drop
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/test-speed && chmod +x test-speed
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/user-add && chmod +x user-add
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/user-add-pptp && chmod +x user-add-pptp
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/user-del && chmod +x user-del
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/user-expire-list && chmod +x user-expire-list
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/user-gen && chmod +x user-gen
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/user-limit && chmod +x user-limit
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/user-list && chmod +x user-list
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/user-login && chmod +x user-login
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/user-pass && chmod +x user-pass
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/user-renew && chmod +x user-renew
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/users && chmod +x users
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/user-active-list && chmod +x user-active-list
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/test.py && chmod +x test.py
+cd
