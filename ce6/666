@@ -1,0 +1,285 @@
+#!/bin/bash
+
+# initialisasi var
+OS=`uname -p`;
+ether=`ifconfig | cut -c 1-8 | sort | uniq -u | grep venet0 | grep -v venet0:`
+if [ "$ether" = "" ]; then
+        ether=eth0
+fi
+#ether='ifconfig -a | sed 's/[ \t].*//;/^\(lo\|\)$/d' | grep -v venet0:';
+MYIP=`curl -s ifconfig.me`;
+MYIP2="s/xxxxxxxxx/$MYIP/g";
+
+# go to root
+cd
+
+# set time GMT +8
+ln -fs /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime
+
+#DISABLE SELINUX START
+echo -n "Disable selinux..."
+setenforce 0
+sed -i "/^#/n;s/enforcing/disabled/" /etc/selinux/config
+echo "Done!"
+#DESABLE SELINUX END
+
+# set locale
+sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
+service sshd restart
+
+# disable ipv6
+echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
+sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
+sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.d/rc.local
+
+# install wget and curl
+yum -y install wget curl
+
+# setting repo
+wget http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+rpm -Uvh epel-release-6-8.noarch.rpm
+rpm -Uvh remi-release-6.rpm
+
+if [ "$OS" == "x86_64" ]; then
+  wget http://repository.it4i.cz/mirrors/repoforge/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+  rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+else
+  wget http://ftp.tu-chemnitz.de/pub/linux/dag/redhat/el6/en/i386/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
+  rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.i686.rpm
+fi
+
+sed -i 's/enabled = 1/enabled = 0/g' /etc/yum.repos.d/rpmforge.repo
+sed -i -e "/^\[remi\]/,/^\[.*\]/ s|^\(enabled[ \t]*=[ \t]*0\\)|enabled=1|" /etc/yum.repos.d/remi.repo
+rm -f *.rpm
+
+# remove unused
+yum -y remove sendmail;
+yum -y remove httpd;
+yum -y remove cyrus-sasl
+
+# update
+yum -y update
+
+# install webserver
+yum -y install nginx php-fpm php-cli
+service nginx start
+service php-fpm start
+chkconfig nginx on
+chkconfig php-fpm on
+
+# install essential package
+yum -y install rrdtool screen iftop htop nmap bc nethogs openvpn vnstat ngrep mtr git zsh mrtg unrar rsyslog rkhunter mrtg net-snmp net-snmp-utils expect nano bind-utils
+yum -y groupinstall 'Development Tools'
+yum -y install cmake
+yum -y --enablerepo=rpmforge install axel sslh ptunnel unrar
+
+# disable exim
+service exim stop
+chkconfig exim off
+
+# setting vnstat
+vnstat -u -i eth0
+echo "MAILTO=root" > /etc/cron.d/vnstat
+echo "*/5 * * * * root /usr/sbin/vnstat.cron" >> /etc/cron.d/vnstat
+service vnstat restart
+chkconfig vnstat on
+
+# install webserver
+cd
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/nginx.conf"
+sed -i 's/www-data/nginx/g' /etc/nginx/nginx.conf
+mkdir -p /home/vps/public_html
+echo "<pre>Setup by Syahz86</pre>" > /home/vps/public_html/index.html
+echo "<?php phpinfo(); ?>" > /home/vps/public_html/info.php
+rm /etc/nginx/conf.d/*
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/vps.conf"
+sed -i 's/apache/nginx/g' /etc/php-fpm.d/www.conf
+chmod -R +rx /home/vps
+service php-fpm restart
+service nginx restart
+
+# install openvpn
+wget -O /etc/openvpn/openvpn.zip "https://raw.githubusercontent.com/syahz86/VPS/master/conf/openvpn-key.zip"
+cd /etc/openvpn/
+unzip openvpn.zip
+wget -O /etc/openvpn/80.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/80-centos.conf"
+if [ "$OS" == "x86_64" ]; then
+  wget -O /etc/openvpn/80.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/80-centos64.conf"
+fi
+wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/syahz86/VPS/master/conf/iptables.up.rules"
+sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
+sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.d/rc.local
+MYIP=`curl icanhazip.com`;
+MYIP2="s/xxxxxxxxx/$MYIP/g";
+sed -i $MYIP2 /etc/iptables.up.rules;
+sed -i 's/venet0/eth0/g' /etc/iptables.up.rules
+iptables-restore < /etc/iptables.up.rules
+sysctl -w net.ipv4.ip_forward=1
+sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/g' /etc/sysctl.conf
+service openvpn restart
+chkconfig openvpn on
+cd
+
+# configure openvpn client config
+cd /etc/openvpn/
+wget -O /etc/openvpn/80-client.ovpn "https://raw.githubusercontent.com/syahz86/VPS/master/conf/80-client.conf"
+sed -i $MYIP2 /etc/openvpn/80-client.ovpn;
+PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
+tar cf client.tar 80-client.ovpn
+cp client.tar /home/vps/public_html/
+cp client.ovpn /home/vps/public_html/
+cd
+
+# setting port ssh
+sed -i '/Port 22/a Port 143' /etc/ssh/sshd_config
+sed -i 's/#Port 22/Port  22/g' /etc/ssh/sshd_config
+service sshd restart
+chkconfig sshd on
+
+# install dropbear
+yum -y install dropbear
+echo "OPTIONS=\"-b /usr/bin/banner.txt -p 109 -p 110 -p 443\"" > /etc/sysconfig/dropbear
+echo "/bin/false" >> /etc/shells
+chkconfig dropbear on
+service dropbear stop
+
+# install banner
+cd
+wget -O /usr/bin/banner.txt https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/banner.txt
+chmod +x /usr/bin/bannermenu
+service dropbear restart
+
+# install vnstat gui
+cd /home/vps/public_html/
+wget http://www.sqweek.com/sqweek/files/vnstat_php_frontend-1.5.1.tar.gz
+tar xf vnstat_php_frontend-1.5.1.tar.gz
+rm vnstat_php_frontend-1.5.1.tar.gz
+mv vnstat_php_frontend-1.5.1 vnstat
+cd vnstat
+sed -i "s/\$iface_list = array('eth0', 'sixxs');/\$iface_list = array('eth0');/g" config.php
+sed -i "s/\$language = 'nl';/\$language = 'en';/g" config.php
+sed -i 's/Internal/Internet/g' config.php
+sed -i '/SixXS IPv6/d' config.php
+sed -i "s/\$locale = 'en_US.UTF-8';/\$locale = 'en_US.UTF+8';/g" config.php
+cd
+
+# install fail2ban
+yum -y install fail2ban
+service fail2ban restart
+chkconfig fail2ban on
+
+# install squid
+yum -y install squid
+wget -O /etc/squid/squid.conf "https://raw.githubusercontent.com/syahz86/VPS/master/conf/squid.conf"
+sed -i $MYIP2 /etc/squid/squid.conf;
+service squid restart
+chkconfig squid on
+
+# install webmin
+cd
+yum -y install perl-Net-SSLeay
+wget http://prdownloads.sourceforge.net/webadmin/webmin-1.801-1.noarch.rpm
+rpm -i webmin-1.801-1.noarch.rpm;
+rm webmin-1.801-1.noarch.rpm
+sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
+service webmin restart
+chkconfig webmin on
+
+# install crontab service
+yum install vixie-cron -y
+
+# Install SSH autokick
+cd
+wget https://raw.githubusercontent.com/syahz86/VPS/master/Autokick-centos.sh
+bash Autokick-centos.sh
+
+# User Status
+cd /usr/bin
+wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/customstatus
+cp /root/customstatus /usr/bin/customstatus
+chmod +x customstatus
+
+# Install Dos Deflate
+apt-get -y install dnsutils dsniff
+wget https://github.com/jgmdev/ddos-deflate/archive/master.zip
+unzip master.zip
+cd ddos-deflate-master
+./install.sh
+cd
+
+# install custom menu
+cd /usr/bin
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ce6/setup && chmod +x setup && ./setup
+cd
+
+#bonus block playstation
+iptables -A OUTPUT -d account.sonyentertainmentnetwork.com -j DROP
+iptables -A OUTPUT -d auth.np.ac.playstation.net -j DROP
+iptables -A OUTPUT -d auth.api.sonyentertainmentnetwork.com -j DROP
+iptables -A OUTPUT -d auth.api.np.ac.playstation.net -j DROP
+iptables-save
+
+#bonus block torrent
+iptables -A INPUT -m string --algo bm --string "BitTorrent" -j REJECT
+iptables -A INPUT -m string --algo bm --string "BitTorrent protocol" -j REJECT
+iptables -A INPUT -m string --algo bm --string "peer_id=" -j REJECT
+iptables -A INPUT -m string --algo bm --string ".torrent" -j REJECT
+iptables -A INPUT -m string --algo bm --string "announce.php?passkey=" -j REJECT
+iptables -A INPUT -m string --algo bm --string "torrent" -j REJECT
+iptables -A INPUT -m string --algo bm --string "info_hash" -j REJECT
+iptables -A INPUT -m string --algo bm --string "/default.ida?" -j REJECT
+iptables -A INPUT -m string --algo bm --string ".exe?/c+dir" -j REJECT
+iptables -A INPUT -m string --algo bm --string ".exe?/c_tftp" -j REJECT
+iptables -A INPUT -m string --string "peer_id" --algo kmp -j REJECT
+iptables -A INPUT -m string --string "BitTorrent" --algo kmp -j REJECT
+iptables -A INPUT -m string --string "BitTorrent protocol" --algo kmp -j REJECT
+iptables -A INPUT -m string --string "bittorrent-announce" --algo kmp -j REJECT
+iptables -A INPUT -m string --string "announce.php?passkey=" --algo kmp -j REJECT
+iptables -A INPUT -m string --string "find_node" --algo kmp -j REJECT
+iptables -A INPUT -m string --string "info_hash" --algo kmp -j REJECT
+iptables -A INPUT -m string --string "get_peers" --algo kmp -j REJECT
+iptables -A INPUT -p tcp --dport 25 -j REJECT   
+iptables -A FORWARD -p tcp --dport 25 -j REJECT 
+iptables -A OUTPUT -p tcp --dport 25 -j REJECT 
+iptables-save
+
+# install speedtest server
+cd
+wget https://raw.githubusercontent.com/syahz86/VPN/master/conf/speedtest_cli.py
+chmod a+rx speedtest_cli.py
+sudo mv speedtest_cli.py /usr/local/bin/speedtest-cli
+sudo chown root:root /usr/local/bin/speedtest-cli
+
+# Restart Service
+chown -R nginx:nginx /home/vps/public_html
+service nginx start
+service php-fpm start
+service vnstat restart
+service openvpn restart
+service sshd restart
+service dropbear restart
+service fail2ban restart
+service squid restart
+service webmin restart
+service crond start
+chkconfig crond on
+
+# info
+clear
+echo "Setup by GollumVPN"
+echo "OpenVPN  : TCP 1194 (client config : http://$MYIP:81/client.tar)"
+echo "OpenSSH  : 22, 143"
+echo "Dropbear : 109, 110, 443"
+echo "Squid3   : 8080 (limit to IP SSH)"
+echo "badvpn   : badvpn-udpgw port 7300"
+echo "Webmin   : http://$MYIP:10000/"
+echo "vnstat   : http://$MYIP:81/vnstat/"
+echo "Timezone : Asia/Malaysia"
+echo -e "Fail2Ban : [\e[32mon\e[0m]"
+echo -e "IPv6     : [\e[31moff\e[0m]"
+echo -e "Torrent Block : [\e[32mon\e[0m]" 
+echo -e "Playstation Block : [\e[32mon\e[0m]"
+echo -e "Please type \e[1;33;44mmenu\e[0m for options"
+
+echo "================================================"
