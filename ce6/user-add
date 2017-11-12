@@ -22,9 +22,9 @@ else
 	echo $username:$password | chpasswd
 
 	echo ""
-	echo "-----------------------------------"
+	echo -e "\e[38;5;198m---------------------------------"
 	echo "Data Login:"
-	echo "-----------------------------------"
+	echo "---------------------------------"
 	echo "Host/IP: $MYIP"
 	echo "Dropbear Port: 443, 110, 109"
 	echo "OpenSSH Port: 22, 143"
