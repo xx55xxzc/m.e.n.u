@@ -4,12 +4,10 @@
 MYIP=$(wget -qO- ipv4.icanhazip.com)
 echo "------------------MEMBUAT AKAUN SSH & OVPN------------------"
 if [[ $vps = "soned" ]]; then
-	echo "             Support GollumVPN                            "
-	echo "             Script by SYAHZ86      "
+	echo ""
 else
 	echo ""
 fi
-	echo " "
 read -p "Isikan username: " username
 
 egrep "^$username" /etc/passwd >/dev/null
