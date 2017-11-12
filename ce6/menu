@@ -11,14 +11,13 @@ MYIP=$(wget -qO- ipv4.icanhazip.com)
 	freq=$( awk -F: ' /cpu MHz/ {freq=$2} END {print freq}' /proc/cpuinfo )
 	tram=$( free -m | awk 'NR==2 {print $2}' )
 	swap=$( free -m | awk 'NR==4 {print $2}' )
-	up=$(uptime|awk '{ $1=$2=$(NF-6)=$(NF-5)=$(NF-4)=$(NF-3)=$(NF-2)=$(NF-1)=$NF=""; print }')
-
-	echo -e "\e[032;1mCPU model:\e[0m $cname"
-	echo -e "\e[032;1mNumber of cores:\e[0m $cores"
-	echo -e "\e[032;1mCPU frequency:\e[0m $freq MHz"
-	echo -e "\e[032;1mTotal amount of ram:\e[0m $tram MB"
-	echo -e "\e[032;1mTotal amount of swap:\e[0m $swap MB"
-	echo -e "\e[032;1mSystem uptime:\e[0m $up"
+	up=$(uptime|awk '{ $1=$2=$(NF-6)=$(NF-5)=$(NF-4)=$(NF-3)=$(NF-2)=$(NF-1)=$NF=""; print }')        
+ echo -e "\e[38;5;82m  _____ _               _____
+      echo -e "       |  ___| |_   ___  ____|___  |
+       echo -e "      | |_  | | | | \ \/ / _ \ / /
+        echo -e "     |  _| | | |_| |>  < (_) / /
+        echo -e "     |_|   |_|\__,_/_/\_\___/_/
+       echo -e " Telegram: @OrangKuatSabahanTerkini\e[0m"  
 	echo "------------------------------------------------------------------------------"
 	echo "Sila pilih pilihan dibawah ini"
 	echo -e "\e[031;1m 1\e[0m) Buat Akaun SSH/OpenVPN (\e[34;1muser-add\e[0m)"
