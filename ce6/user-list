@@ -1,19 +1,18 @@
+
 #!/bin/bash
-# Script by Fluxo7
-echo -e "\e[38;5;82-------------------------------"
-echo "USERNAME        TANGGAL EXPIRED"
-echo "-------------------------------"
-while read Fluxo7
-do
-        AKUN="$(echo $fawzya | cut -d: -f1)"
-        ID="$(echo $fawzya | grep -v nobody | cut -d: -f3)"
-        exp="$(chage -l $AKUN | grep "Account expires" | awk -F": " '{print $2}')"
-        if [[ $ID -ge 500 ]]; then
-        printf "%-17s %2s\n" "$AKUN" "$exp"
-		fi
-done < /etc/passwd
-JUMLAH="$(awk -F: '$3 >= 500 && $1 != "nobody" {print $1}' /etc/passwd | wc -l)"
-echo -e "\e[38;5;82-------------------------------"
-echo "Jumlah akun: $JUMLAH user"
-echo "-------------------------------"
-echo -e "Script by \e[1;33;44m[ Fluxo7 ]\e[0m"
+echo    "--------"
+echo -e "\e[32mUSERNAME\e[0m"
+echo    "--------"
+cat /etc/shadow | cut -d: -f1,8 | sed /:$/d > /tmp/expirelist.txt
+    totalaccounts=`cat /tmp/expirelist.txt | wc -l`
+    for((i=1; i<=$totalaccounts; i++ )); do
+        tuserval=`head -n $i /tmp/expirelist.txt | tail -n 1`
+        username=`echo $tuserval | cut -f1 -d:`
+        userexp=`echo $tuserval | cut -f2 -d:`
+        userexpireinseconds=$(( $userexp * 86400 ))
+        todaystime=`date +%s`
+        if [ $userexpireinseconds -gt $todaystime ] ; then
+            echo $username
+        fi
+    done
+rm /tmp/expirelist.txt
