@@ -4,6 +4,7 @@
 MYIP=$(wget -qO- ipv4.icanhazip.com)
 echo "------------------MEMBUAT AKAUN SSH & OVPN------------------"
 if [[ $vps = "soned" ]]; then
+echo ""
 else
 echo ""
 fi
