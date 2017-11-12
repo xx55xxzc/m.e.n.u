@@ -1,20 +1,8 @@
 #!/bin/bash
-
-
 MYIP=$(wget -qO- ipv4.icanhazip.com)
 echo "------------------MEMBUAT AKAUN SSH & OVPN------------------"
 
 if [[ $vps = "soned" ]]; then
-	echo "             Support Fluxo7                            "
-	echo "             Script by  Fluxo7     "
-else
-	echo "                                                 "
-	echo "                "
-fi
-
-	echo "                   "
-echo ""
-
 read -p "Isikan username: " username
 
 egrep "^$username" /etc/passwd >/dev/null
