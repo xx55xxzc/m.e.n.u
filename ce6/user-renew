@@ -5,7 +5,7 @@ if [[ $USER != 'root' ]]; then
 	exit
 fi
 MYIP=$(wget -qO- ipv4.icanhazip.com)
-echo -e "\e[38;5;82m---------------------RENEW AKAUN SSH---------------------"
+echo -e "\e[38;5;82mRENEW AKAUN SSH"
 if [[ $vps = "soned" ]]; then
 	echo "  "
 else
@@ -13,9 +13,9 @@ else
 fi 
 echo ""
 # begin of user-list
-echo "-----------------------------------"
+echo "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 echo "USERNAME              EXP DATE     "
-echo "-----------------------------------"
+echo "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 
 while read expired
 do
@@ -26,8 +26,7 @@ do
 		printf "%-21s %2s\n" "$AKUN" "$exp"
 	fi
 done < /etc/passwd
-echo "-----------------------------------"
-echo ""
+echo "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 # end of user-list
 
 read -p "Isikan username: " username
@@ -43,11 +42,9 @@ if [ $? -eq 0 ]; then
 	chage -E "$expire" $username
 	passwd -u $username
 	#useradd -M -s /bin/false -e $expire $username
-
-	echo ""
-	echo -e "\e[38;5;198m-----------------------------------"
+	echo -e "\e[38;5;198m≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 	echo "Data Login:"
-	echo "-----------------------------------"
+	echo "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 	echo "Host/IP: $MYIP"
 	echo "Dropbear Port: 443, 110, 109"
 	echo "OpenSSH Port: 22, 143"
@@ -55,7 +52,7 @@ if [ $? -eq 0 ]; then
 	echo "Username: $username"
 	#echo "Password: $password"
 	echo "Expired: $(date -d "$today + $AKTIF days" +"%d-%m-%Y")"
-	echo "-----------------------------------"
+	echo "≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
 else
 	echo "Username [$username] belum terdaftar!"
 	exit 1
