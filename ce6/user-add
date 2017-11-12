@@ -1,0 +1,49 @@
+#!/bin/bash
+
+
+MYIP=$(wget -qO- ipv4.icanhazip.com)
+echo "------------------MEMBUAT AKAUN SSH & OVPN------------------"
+
+if [[ $vps = "soned" ]]; then
+	echo "             Support Fluxo7                            "
+	echo "             Script by  Fluxo7     "
+else
+	echo "                                                 "
+	echo "                "
+fi
+
+	echo "                   "
+echo ""
+
+read -p "Isikan username: " username
+
+egrep "^$username" /etc/passwd >/dev/null
+if [ $? -eq 0 ]; then
+	echo "Username [$username] sudah ada!"
+	exit 1
+else
+	read -p "Isikan password akaun [$username]: " password
+	read -p "Berapa hari akaun [$username] aktif: " AKTIF
+
+	today="$(date +"%Y-%m-%d")"
+	expire=$(date -d "$AKTIF days" +"%Y-%m-%d")
+	useradd -M -s /bin/false -e $expire $username
+	echo $username:$password | chpasswd
+
+	echo ""
+	echo "-----------------------------------"
+	echo "Data Login:"
+	echo "-----------------------------------"
+	echo "Host/IP: $MYIP"
+	echo "Dropbear Port: 443, 110, 109"
+	echo "OpenSSH Port: 22, 143"
+	echo "Squid Proxy: 8080, 3128"
+	#echo "OpenVPN Config: http://$MYIP:81/client.ovpn"
+	echo "Username: $username"
+	echo "Password: $password"
+	echo "Expired : $(date -d "$AKTIF days" +"%d-%m-%Y")"
+	echo "-----------------------------------"
+fi
+
+cd ~/
+rm -f /root/IP

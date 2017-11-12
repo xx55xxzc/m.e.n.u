@@ -1,0 +1,6 @@
+#!/bin/bash
+
+speedtest-cli --share
+echo "--------------------------" 
+echo -e "Script by \e[1;33;44mFluxo7\e[0m"
+echo "--------------------------"
