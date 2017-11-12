@@ -1,26 +1,17 @@
 #!/bin/bash
-
 if [[ $USER != 'root' ]]; then
 	echo "Maaf, Anda harus menjalankan ini sebagai root"
 	exit
 fi
-
 MYIP=$(wget -qO- ipv4.icanhazip.com)
-
-
-echo "----------------------------- GANTI PASSWORD  AKAUN SSH -----------------------------"
+echo -e "\e[38;5;82m GANTI PASSWORD  AKAUN SSH "
 
 if [[ $vps = "soned" ]]; then
-	echo "                     ALL SUPPORTED BY GollumVPN                            "
-	echo "             Script by SYAHZ86   "
+	echo " "
 else
-	echo "                     ALL SUPPORTED BY GollumVPN                            "
-	echo "              Script by SYAHZ86   "
+	echo " "
 fi
-
-	echo "            DEVELOPED BY SYAHZ86      "
-echo ""
-
+	echo " "
 # begin of user-list
 echo "-----------------------------------"
 echo "USERNAME              EXP DATE     "
@@ -50,7 +41,7 @@ if [ $? -eq 0 ]; then
 		echo $username:$password | chpasswd
 		echo "Penggantian password akun [$username] Sukses"
 		echo ""
-		echo "-----------------------------------"
+		echo -e "\e[38;5;198m-----------------------------------"
 		echo "Data Login:"
 		echo "-----------------------------------"
 		echo "Host/IP: $MYIP"
