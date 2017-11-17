@@ -1,21 +1,18 @@
 #!/bin/bash
 
-
-# initialisasi var
-export DEBIAN_FRONTEND=noninteractive
-OS=`uname -m`;
-
-if [[ -e /etc/debian_version ]]; then
-	#OS=debian
-	RCLOCAL='/etc/rc.local'
-else
-	echo "Sepertinya Anda tidak menjalankan installer ini pada sistem Debian"
-	exit
-fi
-
 # go to root
 cd
 
+# install mysql-server
+apt-get update
+apt-get -y install mysql-server
+mysql_secure_installation
+chown -R mysql:mysql /var/lib/mysql/
+chmod -R 755 /var/lib/mysql/
+
+
+# go to root
+cd
 MYIP=$(wget -qO- ipv4.icanhazip.com);
 
 clear
@@ -68,37 +65,42 @@ echo "$so1"
 #Y
 #Y
 
-chown -R mysql:mysql /var/lib/mysql/
-chmod -R 755 /var/lib/mysql/
-
-apt-get install -y nginx php5 php5-fpm php5-cli php5-mysql php5-mcrypt
+# Install Nginx + PHP
+apt-get -y install nginx php5 php5-fpm php5-cli php5-mysql php5-mcrypt
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup
-mv /etc/nginx/conf.d/vps.conf /etc/nginx/conf.d/vps.conf.backup
-wget -O /etc/nginx/nginx.conf "http://vpn989.com/989/encrypt/nginx.conf"
-wget -O /etc/nginx/conf.d/vps.conf "http://vpn989.com/989/encrypt/vps.conf"
+mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.old
+curl https://raw.githubusercontent.com/roymark/gutierrez/master/nginx.conf > /etc/nginx/nginx.conf
+curl https://raw.githubusercontent.com/roymark/roymark.gutierrez/master/vps.conf > /etc/nginx/conf.d/vps.conf
 sed -i 's/cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php5/fpm/php.ini
 sed -i 's/listen = \/var\/run\/php5-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php5/fpm/pool.d/www.conf
-
 useradd -m vps
 mkdir -p /home/vps/public_html
-rm /home/vps/public_html/index.html
 echo "<?php phpinfo() ?>" > /home/vps/public_html/info.php
 chown -R www-data:www-data /home/vps/public_html
 chmod -R g+rw /home/vps/public_html
 service php5-fpm restart
 service nginx restart
 
-apt-get install git
+# Install OCS Panels
+apt-get -y install git
 cd /home/vps/public_html
 git init
-git remote add origin https://github.com/fluxo7/o.c.s.git 
+git remote add origin https://github.com/leedzung-autoscrip/leeocs.git
 git pull origin master
+rm index.html
 
-chmod 777 /home/vps/public_html/config
-chmod 777 /home/vps/public_html/config/config.ini
+# Create Database
+mysql -u root -p
+
+chmod -R g+rw /home/vps/public_html
+chown -R www-data:www-data /home/vps/public_html
+chmod +x /home/vps/public_html
+chmod -R 775 /var/lib/mysql/
+chown -R mysql:mysql /var/lib/mysql/
 chmod 777 /home/vps/public_html/config/route.ini
+chmod 777 /home/vps/public_html/config/config.ini
+chmod 777 /home/vps/public_html/config
 
 #mysql -u root -p
 so2=$(expect -c "
@@ -118,7 +120,7 @@ clear
 echo ""
 echo "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_"
 echo ""
-echo -e "\e[31mSekarang Buka Browser Anda, akses alamat http: // $ MYIP: 85 / dan lengkapkan Details OcsPanel seperti di bawah !"
+echo -e "\e[31mSekarang Buka Browser Anda, akses alamat http: // $ MYIP: 989 / dan lengkapkan Details OcsPanel seperti di bawah !"
 echo "Database:"
 echo "- Database Host: localhost"
 echo "- Database Name: $DatabaseName"
@@ -139,16 +141,6 @@ echo ""
 read -p "Pastikan Step Di Atas Di Buat Dengan Benar , Sebab Install OcsPanel Hanya Boleh Di Buat Sekali Tuk Tiap Vps , Press [Enter] To Continue ... "
 echo ""
 
-sed -i '$ i\deb http://download.webmin.com/download/repository sarge contrib' /etc/apt/sources.list
-sed -i '$ i\deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib' /etc/apt/sources.list
-cd /root
-wget http://www.webmin.com/jcameron-key.asc
-apt-key add jcameron-key.asc
-apt-get update
-apt-get install -y webmin
-sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
-service webmin restart
-
 apt-get -y --force-yes -f install libxml-parser-perl
 
 rm -R /home/vps/public_html/installation
@@ -160,11 +152,10 @@ echo "unset HISTFILE" >> /etc/profile
 # info
 clear
 echo "=======================================================" | tee -a log-install.txt
-echo "Please login OCS Panels at http://$MYIP:81/" | tee -a log-install.txt
+echo "Please login OCS Panels at http://$MYIP:85/" | tee -a log-install.txt
 
 echo "" | tee -a log-install.txt
 echo "Log Instalasi --> /root/log-install.txt" | tee -a log-install.txt
 #echo "" | tee -a log-install.txt
 #echo "PLEASE REBOOT YOUR VPS !" | tee -a log-install.txt
 echo "=======================================================" | tee -a log-install.txt
-cd ~/
