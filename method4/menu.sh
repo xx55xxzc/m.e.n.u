@@ -221,7 +221,7 @@ echo "" | lolcat
 echo "" | lolcat
 echo "" | lolcat
 echo "" | lolcat
-echo "              ----[SELAMAT DATANG DI VPS Fluxo7  - ]---"| boxes -d dog | lolcat
+echo "            ----[SELAMAT DATANG DI VPS Fluxo7  - ]---"| boxes -d dog | lolcat
 echo "        ====================================================="| lolcat
 echo "        #           WhatsApp     : +601094754543            #"| lolcat
 echo "        #           Telegram     : @Fluxo7                  #"| lolcat
