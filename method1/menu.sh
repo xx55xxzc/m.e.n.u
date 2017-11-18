@@ -320,9 +320,9 @@ Port dropbear tidak boleh sama dengan port openVPN/openSSH/squid3 !!!"| boxes -d
 	 ;;
 	"Install OpenVpn")
 	clear
-	wget https://raw.githubusercontent.com/fluxo7/i.o.s/master/openvpn.sh
-	chmod +x openvpn.sh
-	./openvpn.sh
+	wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/O.p.e.n.v.p.n/v.p.n
+	chmod +x v.p.n
+	./v.p.n
 	break
 	;;
   "Download Client Ovpn")
