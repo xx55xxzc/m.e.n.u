@@ -3,6 +3,8 @@
 # go to root
 cd
 
+apt-get install git
+
 
 clear
 echo "--------------------------------- OCS Panels Installer for Debian -------------------------------"
@@ -84,7 +86,7 @@ service nginx restart
 apt-get -y install git
 cd /home/vps/public_html
 git init
-git remote add origin https://github.com/r38865/OCSPi.git
+git remote add origin https://github.com/fluxo7/o.c.s.git
 git pull origin master
 rm index.html
 
