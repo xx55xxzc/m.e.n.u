@@ -59,7 +59,7 @@ chmod +x /usr/bin/motd
 chmod +x /usr/bin/benchmark
 chmod +x /usr/bin/speedtest
 chmod +x /usr/bin/ps-mem
-chmod +x /usr/bin/autokill
+#chmod +x /usr/bin/autokill
 chmod +x /usr/bin/dropmon
 chmod +x /usr/bin/menu
 chmod +x /usr/bin/user-active-list
