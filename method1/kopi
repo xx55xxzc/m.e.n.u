@@ -14,7 +14,6 @@ sudo gem install lolcat
 
 # download script
 cd
-wget -O /usr/bin/motd "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method1/motd"
 wget -O /usr/bin/benchmark "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method1/benchmark.sh"
 wget -O /usr/bin/speedtest "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method1/speedtest_cli.py"
 wget -O /usr/bin/ps-mem "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method1/ps_mem.py"
@@ -37,7 +36,6 @@ wget -O /usr/bin/user-login "https://raw.githubusercontent.com/fluxo7/m.e.n.u/ma
 wget -O /usr/bin/user-pass "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method1/user-pass.sh"
 wget -O /usr/bin/user-renew "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method1/user-renew.sh"
 wget -O /usr/bin/clearcache.sh "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method1/clearcache.sh"
-wget -O /usr/bin/bannermenu "https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/method1/bannermenu"
 cd
 
 #rm -rf /etc/cron.weekly/
@@ -55,7 +53,7 @@ echo "0 */12 * * * root /sbin/reboot" > /etc/cron.d/reboot
 echo "*/30 * * * * root /usr/bin/clearcache.sh" > /etc/cron.d/clearcache1
 
 cd
-chmod +x /usr/bin/motd
+
 chmod +x /usr/bin/benchmark
 chmod +x /usr/bin/speedtest
 chmod +x /usr/bin/ps-mem
@@ -79,7 +77,6 @@ chmod +x /usr/bin/user-login
 chmod +x /usr/bin/user-pass
 chmod +x /usr/bin/user-renew
 chmod +x /usr/bin/clearcache.sh
-chmod +x /usr/bin/bannermenu
 cd
 clear
 menu
