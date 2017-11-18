@@ -3,6 +3,59 @@
 # go to root
 cd
 
+
+clear
+echo "--------------------------------- OCS Panels Installer for Debian -------------------------------"
+if [[ $vps = "zvur" ]]; then
+	echo "                             ALL SUPPORTED BY: ZONA VPS UNTUK RAKYAT                             "
+	echo "                     https://www.facebook.com/groups/Zona.VPS.Untuk.Rakyat/                      "
+else
+	echo "                                    ALL SUPPORTED BY ANEKA VPS                                   "
+	echo "                               https://www.facebook.com/aneka.vps.us                             "
+fi
+echo "                    DEVELOPED BY YURI BHUANA (fb.com/youree82, 085815002021)                     "
+echo ""
+echo ""
+echo "Saya perlu mengajukan beberapa pertanyaan sebelum memulai setup"
+echo "Anda dapat membiarkan pilihan default dan hanya tekan enter jika Anda setuju dengan pilihan tersebut"
+echo ""
+echo "Pertama saya perlu tahu password baru user root MySQL:"
+read -p "Password baru: " -e -i Qwerty123 DatabasePass
+echo ""
+echo "Terakhir, sebutkan Nama Database untuk OCS Panels"
+echo "Tolong, gunakan satu kata saja, tidak ada karakter khusus selain Underscore (_)"
+read -p "Nama Database: " -e -i OCS_PANEL DatabaseName
+echo ""
+echo "Oke, itu semua saya butuhkan. Kami siap untuk setup OCS Panels Anda sekarang"
+read -n1 -r -p "Tekan sembarang tombol untuk melanjutkan..."
+
+#apt-get update
+apt-get update -y
+apt-get install build-essential expect -y
+
+apt-get install -y mysql-server
+
+#mysql_secure_installation
+so1=$(expect -c "
+spawn mysql_secure_installation; sleep 3
+expect \"\";  sleep 3; send \"\r\"
+expect \"\";  sleep 3; send \"Y\r\"
+expect \"\";  sleep 3; send \"$DatabasePass\r\"
+expect \"\";  sleep 3; send \"$DatabasePass\r\"
+expect \"\";  sleep 3; send \"Y\r\"
+expect \"\";  sleep 3; send \"Y\r\"
+expect \"\";  sleep 3; send \"Y\r\"
+expect \"\";  sleep 3; send \"Y\r\"
+expect eof; ")
+echo "$so1"
+#\r
+#Y
+#pass
+#pass
+#Y
+#Y
+#Y
+#Y
 # install mysql-server
 apt-get update
 apt-get -y install mysql-server
@@ -31,7 +84,7 @@ service nginx restart
 apt-get -y install git
 cd /home/vps/public_html
 git init
-git remote add origin github.com/fluxo7/o.c.s.git
+git remote add origin https://github.com/r38865/OCSPi.git
 git pull origin master
 rm index.html
 
