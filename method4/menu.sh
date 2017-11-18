@@ -225,13 +225,12 @@ echo "        ----[SELAMAT DATANG DI VPS Fluxo7  - ]---"| boxes -d dog | lolcat
 echo "        ====================================================="| lolcat
 echo "        #           WhatsApp     : +601094754543            #"| lolcat
 echo "        #           Telegram     : @Fluxo7                  #"| lolcat
-echo "        #           Facebook     : fb.com/Fluxo7.           #"| lolcat
-echo "        #           InstaGram    : Fluxo7.                  #"| lolcat
-echo "        #                                                   #"| lolcat
+echo "        #           Channel      : @NewPremiumService       #"| lolcat
+echo "        #           InstaGram    : Fluxo7                   #"| lolcat
+echo "        #===================================================#"| lolcat
 echo "        #         Copyright: © Fluxo7™ Premium 2017         #"| lolcat
 echo "        ====================================================="| lolcat
-echo ""
-echo -e "\e[40;38;5;166m                         SIMPLE MENU"
+echo -e "\e[40;38;5;197m         WELCOME TO FLUXO7 VPS "
 PS3='Silahkan ketik nomor pilihan anda lalu tekan ENTER: '
 options=("Buat User Premium" "Buat ID Trial" "Perbarui User" "Semua User" "Padam User" "Monitor User Login" "Auto Kill Multi Login" "Stop Kill Multi Login" "User Belum Expired" "User Sudah Expired" "Restart Server" "Ganti Password User" "Ganti Password VPS" "Used Data By Users" "bench-network" "Ram Status" "Bersihkan cache ram" "Ganti Port OpenVPN" "Ganti Port Dropbear" "Ganti Port Openssh" "Ganti Port Squid3" "Speedtest" "Edit Banner Login" "Lihat Lokasi User" "Quit")
 select opt in "${options[@]}"
