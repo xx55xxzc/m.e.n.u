@@ -332,7 +332,7 @@ Port dropbear tidak boleh sama dengan port openVPN/openSSH/squid3 !!!"| boxes -d
     break
     ;;
     "Install Ocs_Panel")
-    wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ocs.panel
+    wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/ocs-panel
     chmod +x ocs-panel
     ./ocs-panel
     break
