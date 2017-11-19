@@ -39,7 +39,7 @@ rm index.html
 
 # Create Database
 mysql -u root -p
-
+CREATE DATABASE IF NOT EXISTS OCSPANEL;EXIT;
 chmod -R g+rw /home/vps/public_html
 chown -R www-data:www-data /home/vps/public_html
 chmod +x /home/vps/public_html
