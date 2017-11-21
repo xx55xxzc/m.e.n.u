@@ -22,8 +22,7 @@ lolcat -F 0.3 -S 0 /usr/bin/bannermenu
 echo "                          Server: $MYIP" | lolcat
 date +"                          %A, %d-%m-%Y" | lolcat
 date +"                                  %H:%M:%S %Z" | lolcat
-echo ""
-echo ""
+echo -e "\e[40;38;5;101m                           SIMPLE MENU
 PS3='Silahkan ketik nomor pilihan anda kemudian tekan ENTER: '
 options=("Create Akun SSH/OVPN" "Create Akun Trial" "Perbarui User" "Ganti Password User SSH/OVPN" "Semua User Dan Tanggal Kadaluarsa" "Hapus User" "Monitoring User Dan Tendang" "Monitor User Login" "Daftar User Aktif" "Daftar User Kadaluarsa" "Disable User Kadaluarsa" "Hapus User Kadaluarsa" "Banned User" "Unbanned User" "Informasi RAM" "Speedtest" "Benchmark" "Manual Kill Multi Login" "Auto Kill Multi Login" "Ganti Password VPS" "Bersihkan Cache Ram Manual" "Edit Banner SSH" "Edit Banner Menu" "Restart Webmin" "Restart VPS" "Restart Dropbear" "Restart OpenSSH" "Restart Squid" "Restart OpenVPN" "Ganti Port OpenSSH" "Ganti Port Dropbear" "Ganti Port Squid" "Ganti Port OpenVPN" "Quit")
 select opt in "${options[@]}"
