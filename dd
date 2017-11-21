@@ -89,13 +89,13 @@ service openvpn restart
 # configure openvpn client config
 cd /etc/openvpn/
 wget -O /etc/openvpn/1194-client.ovpn "http://autoscriptnobita.tk/rendum/client.ovpn"
-sed -i $MYIP2 /etc/openvpn/1194-client.ovpn;
+sed -i $MYIP2 /etc/openvpn/client.ovpn;
 PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
 useradd -M -s /bin/false Choirul
 echo "LdSeptian:$PASS" | chpasswd
 echo "LdSeptian" > pass.txt
 echo "$PASS" >> pass.txt
-tar cf client.tar 1194-client.ovpn pass.txt
+tar cf client.tar client.ovpn pass.txt
 cp client.tar /home/vps/public_html/
 cd
 # install badvpn
