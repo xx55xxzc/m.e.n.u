@@ -358,7 +358,7 @@ Port dropbear tidak boleh sama dengan port openVPN/openSSH/squid3 !!!"| boxes -d
 	nano /usr/bin/bannermenu
 	break
 	 ;;
-        "Ganti Password VPS")
+        "Change Password VPS")
 	read -p "Silahkan isi password baru untuk VPS anda: " pass	
 	echo "root:$pass" | chpasswd
 	echo "Ciieeee.. ciieeeeeee.. abis ganti password VPS ni yeeee...!!!"| boxes -d boy | lolcat
