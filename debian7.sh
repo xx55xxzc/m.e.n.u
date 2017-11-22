@@ -74,14 +74,6 @@ apt-file update
 vnstat -u -i venet0
 service vnstat restart
 
-# install screenfetch
-cd
-wget 'https://raw.githubusercontent.com/ForNesiaFreak/FNS_Debian7/fornesia.com/null/screenfetch-dev'
-mv screenfetch-dev /usr/bin/screenfetch-dev
-chmod +x /usr/bin/screenfetch-dev
-echo "clear" >> .profile
-echo "screenfetch-dev" >> .profile
-
 # install webserver
 cd
 rm /etc/nginx/sites-enabled/default
@@ -257,10 +249,7 @@ echo 'Config file is at /usr/local/ddos/ddos.conf'
 echo 'Please send in your comments and/or suggestions to borneocyberphreak@gmail.com'
 
 # install squid3
-apt-get -y install squid3
-wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/ForNesiaFreak/FNS_Debian7/fornesia.com/null/squid3.conf"
-sed -i $MYIP2 /etc/squid3/squid.conf;
-service squid3 restart
+wget https://raw.githubusercontent.com/fluxo7/m.e.n.u/master/squid.sh && chmod 100 squid.sh && ./squid.sh
 
 # install webmin
 cd
